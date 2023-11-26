@@ -1,0 +1,163 @@
+#stars {
+	width: 3px;
+	height: 3px;
+	background: #fff;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	top: 50%;
+	transform-origin: 0 0;
+	transform: translateY(-50%);
+	border-radius: 50%;
+	animation: rotate 270s infinite linear;
+}
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.loader {
+	border: 10px solid #c484ff;
+	border-top: 10px solid rgb(108, 28, 145);
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	animation: spin 2s linear infinite;
+	margin: 20px auto;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.container {
+	background: #130018;
+	display: grid;
+	height: 80vh;
+	width: 52%;
+	border: dotted rgb(255, 255, 255);
+	margin: 5% 0 0 20%;
+	align-content: space-evenly;
+	justify-content: space-around;
+	justify-items: center;
+}
+
+.btn {
+	width: 6rem;
+	font-size: 1rem;
+	height: 2rem;
+	border: none;
+	outline: none;
+	background: #c38b8b;
+	color: #fff;
+	cursor: pointer;
+	position: relative;
+	z-index: 0;
+	border-radius: 10px;
+}
+
+.btn::before {
+	position: absolute;
+	content: "";
+	width: calc(100% + 4px);
+	height: calc(100% + 4px);
+	left: -2px;
+	top: -2px;
+	background: linear-gradient(
+		124deg,
+		#00eeff,
+		#1d8de8,
+		#311de8,
+		#6b1de8,
+		rgb(151, 29, 232),
+		#af1de8,
+		#d01de8,
+		#f300b6,
+		#f30035
+	);
+	background-size: 400%;
+	z-index: -1;
+	filter: blur(5px);
+	animation: move 20s linear infinite;
+	opacity: 0;
+	transition: opacity 0.3s ease-in-out;
+	border-radius: 10px;
+}
+
+.btn:hover::before {
+	opacity: 1;
+}
+
+.btn::after {
+	z-index: -1;
+	content: "";
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #555273;
+	left: 0;
+	top: 0;
+	border-radius: 10px;
+}
+
+h1 {
+	color: #ffffff;
+	font-family: cursive;
+	height: 30%;
+}
+
+label {
+	color: #ffffff;
+	font-family: cursive;
+	padding: 0 0 5% 0;
+}
+
+select {
+	color: rgba(0, 0, 0, 0);
+	font-family: cursive;
+}
+
+#result {
+	color: #ffffff;
+	font-family: cursive;
+}
+
+.entity_selection_block {
+	display: grid;
+	justify-items: start;
+	align-content: space-evenly;
+	padding: 3%;
+}
+.box select {
+	background-color: #6100d569;
+	color: white;
+	padding: 5px;
+	width: 213px;
+	border: none;
+	font-size: 16px;
+	box-shadow: 0 5px 25px rgb(0 0 0 / 25%);
+	outline: none;
+}
+
+.box select option {
+	padding: 30px;
+}
+
+input {
+	outline: none;
+	color: #ffffff;
+	font-family: cursive;
+	background: transparent;
+	border: none;
+	border-bottom: 1px solid #6f0091;
+}
