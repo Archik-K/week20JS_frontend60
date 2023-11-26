@@ -38,7 +38,7 @@ document.getElementById("fetchButton").addEventListener("click", function () {
 		})
 		.catch((error) => {
 			// Отображаем сообщение об ошибке
-			errorContainer.textContent = `Ошибка: ${error.message}`;
+			errorContainer.textContent = error.message;
 		});
 });
 

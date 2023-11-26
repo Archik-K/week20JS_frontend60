@@ -127,7 +127,8 @@ select {
 	font-family: cursive;
 }
 
-#result {
+#result,
+#error {
 	color: #ffffff;
 	font-family: cursive;
 }
