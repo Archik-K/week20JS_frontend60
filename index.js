@@ -1,62 +1,44 @@
-// Получаем ссылку на элемент с id "fetchButton"
-const fetchButton = document.getElementById("fetchButton");
-
-// Получаем ссылку на элемент с id "result"
-const resultDiv = document.getElementById("result");
-
-// Получаем ссылку на элемент с id "error"
-const errorDiv = document.getElementById("error");
-
-// Добавляем слушатель события "click" на кнопку "fetchButton" для выполнения функции fetchData
-
-// Объявляем функцию fetchData, которая будет вызываться при нажатии на кнопку "fetchButton"
-fetchButton.addEventListener("click", () => {
-	// Получаем значения из элементов с id "entity" и "id"
+// Привязываем обработчик события "click" к кнопке с id "fetchButton"
+document.getElementById("fetchButton").addEventListener("click", function () {
+	// Получаем значение сущности и id из соответствующих элементов формы
 	const entity = document.getElementById("entity").value;
 	const id = document.getElementById("id").value;
 
-	// Очищаем содержимое элементов "resultDiv" и "errorDiv" перед новым запросом
+	// Получаем ссылки на элементы с id "result" и "error"
+	const resultDiv = document.getElementById("result");
+	const errorContainer = document.getElementById("error");
+
+	// Очищаем содержимое элементов "resultDiv" и "errorContainer" перед новым запросом
 	resultDiv.textContent = "";
-	errorDiv.textContent = "";
+	errorContainer.textContent = "";
 
 	// Создаем элемент лоадера и добавляем его в "resultDiv"
 	const loader = document.createElement("div");
 	loader.classList.add("loader");
 	resultDiv.appendChild(loader);
 
-	// Отправляем запрос на сервер по указанному URL
-	fetch(`https://swapi.dev/api/${entity}/${id}`)
+	// Строим URL для API-запроса, используя значения сущности и id
+	const apiUrl = `https://swapi.dev/api/${entity}/${id}/`;
+
+	// Отправляем запрос к API
+	fetch(apiUrl)
 		.then((response) => {
-			// Проверяем, успешен ли запрос
+			// Проверяем успешность ответа
 			if (!response.ok) {
-				// Если запрос не успешен, выбрасываем ошибку с текстом статуса ответа
-				throw new Error(response.statusText);
+				throw new Error(`Ошибка: ${response.status}`);
 			}
-			// Возвращаем данные в формате JSON
+			// Возвращаем данные в формате JSON из ответа
 			return response.json();
 		})
 		.then((data) => {
-			// Удаляем лоадер после получения данных и отображаем результат
-			resultDiv.removeChild(loader);
-			// Проверяем тип полученных данных (массив или объект)
-			if (Array.isArray(data)) {
-				// Если данные - массив, перебираем каждый элемент и создаем элемент <p> с именем, добавляя его в "resultDiv"
-				data.forEach((item) => {
-					const nameElement = document.createElement("p");
-					nameElement.textContent = "Name:" + item.title;
-					resultDiv.appendChild(nameElement);
-				});
-			} else {
-				// Если данные - не массив, создаем элемент <p> с именем из данных и добавляем его в "resultDiv"
-				const nameElement = document.createElement("p");
-				nameElement.textContent = "Name:" + " " + data.title;
-				resultDiv.appendChild(nameElement);
-			}
+			// Отображаем результат (отображаем только имя или заголовок, либо сообщение об отсутствии данных)
+			resultDiv.textContent = `Name: ${
+				data.name || data.title || "Нет данных для отображения"
+			}`;
 		})
 		.catch((error) => {
-			// Удаляем лоадер при возникновении ошибки и отображаем текст ошибки в "errorDiv"
-			resultDiv.removeChild(loader);
-			errorDiv.textContent = `Error: ${error.message}`;
+			// Отображаем сообщение об ошибке
+			errorContainer.textContent = `Ошибка: ${error.message}`;
 		});
 });
 
